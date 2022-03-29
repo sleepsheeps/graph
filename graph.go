@@ -4,21 +4,24 @@ import "sort"
 
 type Graph struct {
 	e     int
+	v     int
 	edges [][]Edge
 }
 
-func NewGraph(e int) *Graph {
+func NewGraph(e, v int) *Graph {
 	g := &Graph{
 		e: e,
+		v: v,
 	}
-	g.edges = make([][]Edge, 0, e)
+	g.edges = make([][]Edge, v)
 	return g
 }
 
 func (g *Graph) AddEdge(f, t int, w float32) {
 	g.edges[f] = append(g.edges[f], Edge{
-		to: t,
-		w:  w,
+		from: f,
+		to:   t,
+		w:    w,
 	})
 }
 
@@ -37,15 +40,24 @@ func (g *Graph) SortedEdges(minToMax bool) {
 	}
 }
 
-type Edge struct {
-	to int
-	w  float32
+func (g *Graph) V() int {
+	return g.v
 }
 
-func (e *Edge) GetTo() int {
+type Edge struct {
+	from int
+	to   int
+	w    float32
+}
+
+func (e Edge) GetFrom() int {
+	return e.from
+}
+
+func (e Edge) GetTo() int {
 	return e.to
 }
 
-func (e *Edge) GetW() float32 {
+func (e Edge) GetW() float32 {
 	return e.w
 }

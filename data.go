@@ -24,3 +24,11 @@ var (
 		{6, 4, 0.93},
 	}
 )
+
+func MakeTidyEWDGraph() *Graph {
+	g := NewGraph(E, V)
+	for _, edge := range TidyEWD {
+		g.AddEdge(int(edge[0]), int(edge[1]), edge[2])
+	}
+	return g
+}
